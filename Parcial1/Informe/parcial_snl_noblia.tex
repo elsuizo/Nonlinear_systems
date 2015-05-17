@@ -1,0 +1,231 @@
+\documentclass[10pt]{article}
+%-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*Packages--*--*--*--*--*--*--*--*--*--*--*--*--*
+\usepackage{fancyhdr}
+ \usepackage[utf8]{inputenc}
+\usepackage{hyperref} 
+\usepackage[spanish]{babel}
+%\usepackage{simpsons}
+%\usepackage[dvips]{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{graphicx}
+%\usepackage[ansinew]{inputenc}
+\usepackage{color}
+%\usepackage{pstricks, pst-node, pst-plot, pst-circ}
+%\usepackage{moredefs}
+%\usepackage{pstricks}
+%\usepackage{pst-circ}
+%\usepackege{pst-node}
+%\usepackage{pst-plot}
+\usepackage{moredefs}
+%\usepackage{mcode}
+%\usepackage[above]{placeins}
+\usepackage{fancybox}
+\usepackage{subfig}
+\usepackage{float}
+%\usepackage{mcode} para colorear codigo de matlab
+\usepackage{xcolor}
+\usepackage{wallpaper}
+\usepackage{textcomp}
+%-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*--*--*--*--*--*--*--*--*--*--*--*--*--*
+
+%*****************************definiciones*******************************
+\oddsidemargin -0.2in \textwidth 7.0in \topmargin -0.9in \textheight
+9.0in
+\parindent 3em
+\hyphenation{e-jem-plo
+e-rro-res de-pen-dien-te co-rrien-te res-pues-ta fi-gu-ran
+cons-tan-tes o-pe-ra-cion i-lu-mi-na-cion}
+
+\pagestyle{fancy}
+\headheight 50pt 
+\renewcommand{\arrayrulewidth}{3pt} 
+\newtheorem{defi}{{\it Definición}}[section]
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@cabecera y pie de pagina @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+\rhead{\includegraphics[width=.075\textwidth]{logo_iaci2.eps}}
+\chead{}
+\lhead{Sistemas nolineales}
+\rfoot{1º cuatrimestre 2013  }
+\cfoot{\thepage}
+\lfoot{\bf{Universidad Nacional de Quilmes}}
+%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+%::::::::::::::::::::::Colores varios:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+\definecolor{azul-claro}{rgb}{0.335,0.89,1}
+\definecolor{gainsboro}{rgb}{0.86,0.86,0.86}
+\definecolor{mediumseagreen}{rgb}{0.24,0.7,0.44}
+\definecolor{moccasin}{rgb}{1,0.89,0.71}
+\definecolor{cornflowerblue}{rgb}{0.39,0.58,0.93}
+\definecolor{lightgray}{rgb}{0.83,0.83,0.83}
+\definecolor{darkgrey}{rgb}{0.66,0.66,0.66}
+\definecolor{darkslategray}{rgb}{0.18,0.31,0.31}
+\definecolor{lavender}{rgb}{0.9,0.9,0.98}
+\definecolor{azure}{rgb}{0.94,1,1}
+\definecolor{honeydew}{rgb}{0.94,1,0.94}
+
+%:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+%Requiere \usepackage{xcolor}
+\renewcommand{\arrayrulewidth}{1pt} 
+\newcommand{\mcaja}[1]{%
+{{\fboxsep 10pt \fboxrule 1pt%
+\fcolorbox{black}{orange}{%
+\color{black} \Huge #1}}}
+}
+\newcommand{\nuevobox}[1]{%
+{{\fboxsep 14pt \fboxrule 1pt%
+\fcolorbox{black}{darkgrey}{%
+\color{lavender} \huge #1}}}
+}
+\newcommand{\ssection}[1]{\section[#1]{\mcaja{#1}}}
+\makeatletter
+\newcommand{\sect}[1]{\subsection[#1]{\nuevobox{#1}}}
+\makeatletter
+\def\section{\@ifstar\unnumberedsection\numberedsection}
+\def\numberedsection{\@ifnextchar[%]
+\numberedsectionwithtwoarguments\numberedsectionwithoneargument}
+\def\unnumberedsection{\@ifnextchar[%]
+\unnumberedsectionwithtwoarguments\unnumberedsectionwithoneargument}
+\def\numberedsectionwithoneargument#1{\numberedsectionwithtwoarguments[#1]{#1}}
+\def\unnumberedsectionwithoneargument#1{\unnumberedsectionwithtwoarguments[#1]{#1}}
+\def\numberedsectionwithtwoarguments[#1]#2{%
+\ifhmode\par\fi
+\removelastskip
+\vskip 3ex\goodbreak
+\refstepcounter{section}%
+\begingroup
+%\noindent
+\leavevmode\large\bfseries\raggedright\mcaja%%
+\thesection\ #2\par\nobreak
+\endgroup
+\noindent\hrulefill\nobreak
+\vskip 2ex\nobreak
+\addcontentsline{toc}{section}{%
+\protect\numberline{\thesection}%
+#1}%
+}
+\def\unnumberedsectionwithtwoarguments[#1]#2{%
+\ifhmode\par\fi
+\removelastskip
+\vskip 3ex\goodbreak
+% \refstepcounter{section}%
+\begingroup
+\noindent
+\leavevmode\Large\bfseries\raggedright
+% \thesection\
+#2\par\nobreak
+\endgroup
+\noindent\hrulefill\nobreak
+\vskip 0ex\nobreak
+\addcontentsline{toc}{section}{%
+%
+\protect\numberline{\thesection}%
+#1}%
+}
+\makeatother
+%%%Cap\’itulos
+\usepackage{helvet}
+%\usepackage{psboxit,pstcol}
+\makeatletter
+\def\@makechapterhead#1{%
+{\parindent \z@ \raggedright \reset@font
+\hbox to \hsize{%
+\rlap{\raisebox{-2.5em}{\raisebox{\depth}{%%% Necesita la imagen "imgCapitulo"
+\includegraphics[width=10em]{logo_iaci2.eps}}}}%
+\rlap{\hbox to 6em{\hss
+\reset@font\sffamily\fontsize{8em}{8em}\selectfont\black
+\thechapter\hss}}%
+\hspace{10em}%
+\vbox{%
+\advance\hsize by -10em
+\reset@font\fontfamily{hv}\bfseries\Large
+#1
+\par
+}%
+}}%
+\vskip 5pt
+\hrulefill
+\vskip 50pt
+}
+\makeatother
+%----------------------------------------------------------------------------------------
+% Theorems
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}{Corolario}[theorem]
+\newtheorem{lemma}[theorem]{Lema}
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+\newcommand*{\plogo}{\fbox{$\mathcal{PL}$}}
+\newcommand*{\titleGP}{\begingroup % Create the command for including the title page in the document
+\centering % Center all text
+\vspace*{\baselineskip} % White space at the top of the page
+
+\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal line
+\rule{\textwidth}{0.4pt}\\[\baselineskip] % Thin horizontal line
+
+{\LARGE Sistemas No-Lineales  \\[0.3\baselineskip] Primer parcial}\\[0.2\baselineskip] % Title
+
+\rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal line
+\rule{\textwidth}{1.6pt}\\[\baselineskip] % Thick horizontal line
+
+\scshape % Small caps
+ Martín Noblía 
+\vspace*{2\baselineskip} % Whitespace between location/year and editors
+
+Profesoras: \\[\baselineskip]
+{\Large Virginia Mazzone \\ Mariana Suarez \par}
+\vfill % Whitespace between editor names and publisher logo_iaci2
+\includegraphics[width=.175\textwidth]{logo_iaci2.eps}
+
+% Editor list
+{\itshape Universidad Nacional de Quilmes \par} % Editor affiliation
+
+\vfill % Whitespace between editor names and publisher logo
+
+%\plogo \\[0.3\baselineskip] % Publisher logo
+{\scshape 2015} \\[0.3\baselineskip] % Year published
+%{\large THE PUBLISHER}\par % Publisher
+
+\endgroup}
+
+%----------------------------------------------------------------------------------------
+%	BLANK DOCUMENT
+%----------------------------------------------------------------------------------------
+
+
+\begin{document}
+\pagestyle{empty} 
+
+\titleGP
+\newpage
+\pagestyle{fancy}
+
+\section{Introducción}
+\begin{theorem}
+    Sea $f(x)$ una función
+\end{theorem}
+
+\newpage
+
+\begin{thebibliography}{6}
+ \bibitem{Principal}{Preparación y evaluación de Proyectos,cuarta edición,Nassir Sapag Chain, Reinaldo Sapag Chain}\\
+ \textbf{Enlaces}:
+\begin{center}
+\url{www.google.com.ar/}\\
+\url{http://www.lanacion.com.ar/}\\
+\url{http://www.espacioyconfort.com.ar/ }\\
+\end{center}
+
+\end{thebibliography}
+
+
+
+\end{document}
