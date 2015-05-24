@@ -1,5 +1,10 @@
 \documentclass[10pt]{article}
 %-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*Packages--*--*--*--*--*--*--*--*--*--*--*--*--*
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{mdframed}
 \usepackage{fancyhdr}
  \usepackage[utf8]{inputenc}
 \usepackage{hyperref} 
@@ -43,7 +48,6 @@ cons-tan-tes o-pe-ra-cion i-lu-mi-na-cion}
 \pagestyle{fancy}
 \headheight 50pt 
 \renewcommand{\arrayrulewidth}{3pt} 
-\newtheorem{defi}{{\it Definición}}[section]
 %@@@@@@@@@@@@@@@@@@@@@@@@@@@cabecera y pie de pagina @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 \rhead{\includegraphics[width=.075\textwidth]{logo_iaci2.eps}}
@@ -154,10 +158,59 @@ cons-tan-tes o-pe-ra-cion i-lu-mi-na-cion}
 \makeatother
 %----------------------------------------------------------------------------------------
 % Theorems
-\newtheorem{theorem}{Teorema}[section]
-\newtheorem{corollary}{Corolario}[theorem]
-\newtheorem{lemma}[theorem]{Lema}
+%\newtheorem{lem}{Lemma}[section]
+%\newtheorem{coro}{Corolario}[section]
+%\newtheorem{teo}{Torema}[section]
+%\newtheorem{defi}{Definición}[section]
+
+\newmdtheoremenv{lem}{Lema}[section]
+\newmdtheoremenv{coro}{Corolario}[section]
+\newmdtheoremenv{teo}{Teorema}[section]
+\newmdtheoremenv{defi}{Definición}[section]
 %----------------------------------------------------------------------------------------
+\definecolor{titlepagecolor}{cmyk}{0.73,.73,0,.37}
+\newcommand\titlepagedecoration{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+
+\coordinate (aux1) at ([yshift=-15pt]current page.north east);
+\coordinate (aux2) at ([yshift=-410pt]current page.north east);
+\coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+\coordinate (aux4) at ([yshift=-150pt]current page.north east);
+
+\begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
+\draw
+  (aux1) -- coordinate (a)
+  ++(225:5) --
+  ++(-45:5.1) coordinate (b);
+\draw[shorten <= -10pt]
+  (aux3) --
+  (a) --
+  (aux1);
+\draw[opacity=0.3,titlepagecolor,shorten <= -10pt]
+  (b) --
+  ++(225:2.2) --
+  ++(-45:2.2);
+\end{scope}
+\draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+  (aux4) --
+  ++(225:0.8) --
+  ++(-45:0.8);
+\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+\draw[shorten <= -10pt]
+  (aux2) --
+  ++(225:3) coordinate[pos=0.45] (c) --
+  ++(-45:3.1);
+\draw
+  (aux2) --
+  (c) --
+  ++(135:2.5) --
+  ++(45:2.5) --
+  ++(-45:2.5) coordinate[pos=0.3] (d);   
+\draw 
+  (d) -- +(45:1);
+\end{scope}
+\end{tikzpicture}%
+}
 
 
 %----------------------------------------------------------------------------------------
@@ -205,26 +258,151 @@ Profesoras: \\[\baselineskip]
 \pagestyle{empty} 
 
 \titleGP
+\titlepagedecoration
 \newpage
 \pagestyle{fancy}
 
-\section{Introducción}
-\begin{theorem}
-    Sea $f(x)$ una función
-\end{theorem}
+\section{Problema 1}
+Dado el sistema no lineal:
+
+\begin{equation}
+     \label{eq:problema1}
+      \left\{
+	       \begin{array}{ll}
+               \dot{x}=x-y-(x^2 + \frac{3}{2}y^2)x\\[5pt] %truco para agregar espacio
+		\dot{y}=x+y-(x^2 + \frac{1}{2}y^2)y
+
+	       \end{array}
+	     \right.
+\end{equation}
+
+Analizar la existencia de ciclos límites.
+
+\subsection{Resolución}
+Podemos expresar el sistema \eqref{eq:problema1}:
+\begin{equation}
+\mathbf{x}=
+\begin{bmatrix}
+ x(t) \\
+ y(t)
+ \end{bmatrix}
+ \end{equation}
+
+ \begin{equation}
+\mathbf{f}=
+\begin{bmatrix}
+ f_{1}(x(t),y(t)) \\
+ f_{2}(x(t),y(t))
+ \end{bmatrix}
+ \end{equation}
+ Donde:
+
+
+\begin{equation}
+     \label{eq:problema1:efes}
+      \left\{
+	       \begin{array}{ll}
+               f_{1}=x-y-(x^2 + \frac{3}{2}y^2)x\\[5pt] %truco para agregar espacio
+               f_{2}=x+y-(x^2 + \frac{1}{2}y^2)y
+
+	       \end{array}
+	     \right.
+\end{equation}
+
+
+Asi nuestro sistema dinámico no lineal \eqref{eq:problema1} escrito en forma compacta queda:
+
+\begin{equation}
+ \dot{\mathbf{x}}=\mathbf{f}(\mathbf{x}) \label{eq:forma_vec}
+\end{equation}
+Donde $\mathbf{x}$ es el vector de estados del sistema.
+Para investigar la presencia de órbitas periódicas vamos a necesitar primero de la teoría(definiciones y teoremas) en la cual nos basaremos y mediante la cual quedará más clara la resolución.
+
+\begin{defi}[Puntos de equilibrios (PE)]
+ Un punto $\mathbf{x}=\mathbf{x}^{*}$ en el espacio de estados es un punto de equilibrio (PE) de \eqref{eq:forma_vec} si tiene la propiedad de 
+que cuando el estado inicial del sistema es $\mathbf{x}^{*}$, el estado permanece en $\mathbf{x}^{*}$ en todo tiempo futuro.
+\end{defi}
+
+Ya que $\mathbf{x}^{*}=cte$ entonces los puntos de equilibrio de \eqref{eq:forma_vec} son:
+
+\begin{equation}
+ \mathbf{f}(\mathbf{x})=\mathbf{0} \label{eq:pe}
+\end{equation}
+
+Además sabemos que podemos inferir el comportamiento cualitativo en las cercanias del/los punto/s de equilibrio/s, bajo ciertas condiciones 
+que se enuncian en el siguiente teorema:
+
+\begin{teo}[Hartman-Grobman]
+
+Consideremos el sistema no lineal planar $ \dot{\mathbf{x}}=\mathbf{f}(\mathbf{x})$, con $\mathbf{f}$ lo suficientemente suave. Supongamos que $\mathbf{x}^{*}$
+es un punto de equilibrio del sistema y que $A=\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}\bigg\vert_{\mathbf{x}=\mathbf{x}^{*}}$ no tiene autovalores
+nulos o imaginarios puros. Entonces existe un difeomorfismo $\mathbf{h}$ definido en un entorno del equilibrio $\mathbf{U}$ de $\mathbf{x}^{*}$ ($\mathbf{h}:\mathbf{U} \longrightarrow \mathbb{R}^{2}$) de modo tal que "lleva"
+las trayectorias del sistema no lineal sobre las del sistema linealizado. En particular $\mathbf{h}(\mathbf{x}^{*})=\mathbf{0}$
+\label{hart}
+
+\end{teo}
+
+\begin{defi}[Ciclos límite]
+Un ciclo límite es una órbita cerrada y aislada. Un sistema oscila cuando tiene una solución periódica no trivial:
+
+\begin{equation}
+\mathbf{x}(t+T)=\mathbf{x}(t) \; ; \hspace{.5cm} t\geq 0 \hspace{.5cm} \text{para algún} \quad  T > 0
+\end{equation}
+La imagen de una solución periódica en el retrato de fase es la de una órbita periódica u órbita cerrada. 
+\end{defi}
+
+Recordemos que la matriz $A$ del teorema ~\ref{hart} es la matriz Jacobiana evaluada en el PE y se define:
+\begin{equation}
+A=\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}\bigg\vert_{\mathbf{x}=\mathbf{x}^{*}}=
+\begin{bmatrix}
+ \dfrac{\partial f_1}{\partial x_1}& \dfrac{\partial f_1}{\partial x_2} \\ 
+\dfrac{\partial f_2}{\partial x_1}& \dfrac{\partial f_2}{\partial x_2}
+\end{bmatrix} 
+\bigg\vert_{\mathbf{x}=\mathbf{x}^{*}}
+\label{eq:jaco}
+\end{equation}
+
+\begin{lem}[Poincaré-Bendixon\footnote{Ivar Otto Bendixson (August 1, 1861 – 1935) was a Swedish mathematician.}]
+Consideremos el sistema \eqref{eq:forma_vec} y sea $\mathbf{M}$ un conjunto  cerrado y acotado de $\mathbb{R}^2$ tal que:
+\begin{itemize}
+\item $\mathbf{M}$ no contiene puntos de equilibrio, o contiene solo un punto de equilibrio($\mathbf{p}$) tal que la matriz Jacobiana $A=\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}\bigg\vert_{\mathbf{x}=\mathbf{p}}$ tiene autovalores con parte real positiva(por lo tanto, el punto de equilibrio es un foco inestable o un nodo inestable)
+
+\item Toda trayectoria que comienza en $\mathbf{M}$ permanece en $\mathbf{M}$ para todo tiempo futuro
+\end{itemize}
+Entonces $\mathbf{M}$ contiene una órbita periódica de \eqref{eq:forma_vec}
+\end{lem}
+
+
+\begin{lem}[Criterio de Bendixon]
+
+Si sobre una región simplemente conexa $\mathbf{D} \subset \mathbb{R}^2$ la expresión $\nabla \; \mathbf{f}=\dfrac{\partial f_1}{\partial x_1}+\dfrac{\partial f_2}{\partial x_2}$ es no identicamente cero y no cambia de signo, entonces el sistema \eqref{eq:forma_vec} no posee órbitas periódicas situadas enteramente en $\mathbf{D}$
+
+\label{bendixon}
+
+\end{lem}
+
+Necesitamos entonces calcular los puntos de equilibrio del sistema, lo hacemos a traves de la fórmula \eqref{eq:pe}, o sea que nos queda por resolver el siguiente sistema de ecuaciones no lineales:
+
+\begin{equation}
+     \label{eq:problema1:pes}
+      \left\{
+	       \begin{array}{ll}
+               x-y-(x^2 + \frac{3}{2}y^2)x=0\\[5pt] %truco para agregar espacio
+               x+y-(x^2 + \frac{1}{2}y^2)y=0
+
+	       \end{array}
+	     \right.
+\end{equation}
+
+
 
 \newpage
 
 \begin{thebibliography}{6}
- \bibitem{Principal}{Preparación y evaluación de Proyectos,cuarta edición,Nassir Sapag Chain, Reinaldo Sapag Chain}\\
- \textbf{Enlaces}:
-\begin{center}
-\url{www.google.com.ar/}\\
-\url{http://www.lanacion.com.ar/}\\
-\url{http://www.espacioyconfort.com.ar/ }\\
-\end{center}
-
+ \bibitem{Principal}{ Nonlinear Systems, third edition. Hassan K. Khalil,ISBN 0-13-067389-7 }
+ \bibitem{alternativo}{Applied Nonlinear Control. Jean-Jacques E. Slotine, Weiping Li, ISBN 0-13-040890-5}
 \end{thebibliography}
+
 
 
 
