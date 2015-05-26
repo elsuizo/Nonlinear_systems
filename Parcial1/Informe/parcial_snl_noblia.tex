@@ -1,5 +1,11 @@
 \documentclass[10pt]{article}
 %-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*Packages--*--*--*--*--*--*--*--*--*--*--*--*--*
+
+\usepackage[usenames,dvipsnames]{pstricks}
+\usepackage{epsfig}
+\usepackage{pst-grad} % For gradients
+\usepackage{pst-plot} % For axes
+
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{epigraph}
@@ -35,9 +41,7 @@
 \usepackage{xcolor}
 \usepackage{wallpaper}
 \usepackage{textcomp}
-%-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*--*--*--*--*--*--*--*--*--*--*--*--*--*--*
 
-%*****************************definiciones*******************************
 \oddsidemargin -0.2in \textwidth 7.0in \topmargin -0.9in \textheight
 9.0in
 \parindent 3em
@@ -48,7 +52,9 @@ cons-tan-tes o-pe-ra-cion i-lu-mi-na-cion}
 \pagestyle{fancy}
 \headheight 50pt 
 \renewcommand{\arrayrulewidth}{3pt} 
-%@@@@@@@@@@@@@@@@@@@@@@@@@@@cabecera y pie de pagina @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+%-------------------------------------------------------------------------
+% Cabecera y pie de pagina
+%-------------------------------------------------------------------------
 
 \rhead{\includegraphics[width=.075\textwidth]{logo_iaci2.eps}}
 \chead{}
@@ -56,9 +62,9 @@ cons-tan-tes o-pe-ra-cion i-lu-mi-na-cion}
 \rfoot{1º cuatrimestre 2013  }
 \cfoot{\thepage}
 \lfoot{\bf{Universidad Nacional de Quilmes}}
-%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-%::::::::::::::::::::::Colores varios:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+%-------------------------------------------------------------------------
+% colores varios 
+%-------------------------------------------------------------------------
 
 \definecolor{azul-claro}{rgb}{0.335,0.89,1}
 \definecolor{gainsboro}{rgb}{0.86,0.86,0.86}
@@ -262,6 +268,10 @@ Profesoras: \\[\baselineskip]
 \newpage
 \pagestyle{fancy}
 
+%-------------------------------------------------------------------------
+% Problema 1
+%-------------------------------------------------------------------------
+
 \section{Problema 1}
 Dado el sistema no lineal:
 
@@ -394,7 +404,486 @@ Necesitamos entonces calcular los puntos de equilibrio del sistema, lo hacemos a
 	     \right.
 \end{equation}
 
+EL único punto de equilibrio del sistema es $(x_{1}^{*},x_{2}^{*})=(0,0)$, esto se puede
+ver simplemente observando en la parte lineal:
 
+\begin{equation}
+     \label{eq:problema1:pes:linear}
+      \left\{
+	       \begin{array}{ll}
+               x-y=0\\[5pt] %truco para agregar espacio
+               x+y=0
+
+	       \end{array}
+	     \right.
+\end{equation}
+
+vemos que para que se cumplan simultáneamente el único punto que satisface es el mencionado.
+
+
+A continuación veamos si podemos inferir el comportamiento del sistema \eqref{eq:forma_vec} en las cercanías del punto de equilibrio, teniendo presente los condicionamientos del teorema \ref{hart}, para ello necesitamos primero calcular la matriz Jacobiana del sistema \eqref{eq:jaco} :
+
+
+\begin{equation}
+\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}=
+\begin{bmatrix}
+ \dfrac{\partial f_1}{\partial x_1}& \dfrac{\partial f_1}{\partial x_2} \\ 
+\dfrac{\partial f_2}{\partial x_1}& \dfrac{\partial f_2}{\partial x_2}
+\end{bmatrix} 
+=
+\begin{bmatrix}
+ -3 x_{1}^{2} - \frac{3 x_{2}^{2}}{2} + 1& - 3 x_{1} x_{2} - 1  \\
+ - 2 x_{1} x_{2} + 1& - x_{1}^{2} - \frac{3 x_{2}^{2}}{2} + 1
+\end{bmatrix}
+\label{eq:jaco_sis}
+\end{equation}
+
+
+Luego al evaluar la matriz Jacobiana en el punto de equilibrio: $\mathbf{x}_1=(0,0)$
+
+\begin{equation}
+A_1=\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}\bigg\vert_{\mathbf{x}=\mathbf{x}_1}=
+\begin{bmatrix}
+1 & -1 \\
+1& 1
+\end{bmatrix}
+\label{eq:jaco_sis_1}
+\end{equation}
+
+Cuyos autovalores son: 
+
+\begin{equation}
+\lambda_{1}^{A_1}=1-j    \label{eq:raiz_1}
+\end{equation}
+
+
+\begin{equation}
+\lambda_{2}^{A_1}=1+j \label{eq:raiz_2}
+\end{equation}
+
+Del teorema \ref{hart} podemos inferir el comportamiento del punto de equilibrio 
+en un entorno reducido del mismo. El sistema no lineal en ese entorno se comporta como un 
+foco inestable. Graficamente:
+
+\begin{center}
+\scalebox{1} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-2.1717188)(4.1159377,2.2117188)
+\rput(2.0,-0.17171875){\psaxes[linewidth=0.04,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4,labels=none,ticksize=0.10583333cm]{<->}(0,0)(-2,-2)(2,2)}
+\psbezier[linewidth=0.02](1.98,-0.15171875)(1.98,-0.95171875)(1.0206022,0.84298086)(2.02,0.80828124)(3.0193977,0.7735816)(2.9799037,-0.6456036)(1.98,-0.63171875)(0.9800964,-0.61783385)(1.0328047,0.847624)(1.98,1.1682812)(2.9271953,1.4889386)(3.471796,0.7004025)(3.02,-0.19171876)(2.568204,-1.08384)(1.3590584,-1.0770916)(0.98,-0.15171875)(0.60094166,0.77365404)(1.8208416,2.1121683)(2.66,1.5682813)
+\psline[linewidth=0.02cm](1.58,0.32828125)(1.48,0.22828124)
+\psline[linewidth=0.02cm](1.58,0.32828125)(1.68,0.22828124)
+\psline[linewidth=0.02cm](1.48,-0.47171876)(1.48,-0.57171875)
+\psline[linewidth=0.02cm](1.48,-0.47171876)(1.58,-0.47171876)
+\psline[linewidth=0.02cm](1.58,0.92828125)(1.48,0.92828125)
+\psline[linewidth=0.02cm](1.58,0.92828125)(1.58,0.8282812)
+\psline[linewidth=0.02cm](3.18,0.22828124)(3.08,0.32828125)
+\psline[linewidth=0.02cm](3.18,0.22828124)(3.28,0.32828125)
+\psline[linewidth=0.02cm](2.48,1.6282812)(2.48,1.7282813)
+\psline[linewidth=0.02cm](2.48,1.6282812)(2.38,1.6282812)
+
+\rput(3.925625,-0.36671874){$x_1$}
+
+\rput(2.1401563,2.0332813){$x_2$}
+
+\rput(0.9065625,0.93328124){$\mathbf{x}(t)$}
+\end{pspicture} 
+}
+\end{center}
+
+A continuación vamos a presentar un resultado muy útil que relaciona la existencia de órbitas periódicas y puntos de equilibrios. El resultado usa los índices de Poincaré\footnote{Jules Henri Poincaré (Nancy, Francia, 29 de abril de 1854 – París, 17 de julio de 1912), generalmente conocido como Henri Poincaré, fue un prestigioso matemático, científico teórico y filósofo de la ciencia, primo del presidente de Francia Raymond Poincaré. Poincaré es descrito a menudo como el último
+universalista(después de Gauss) capaz de entender y contribuir en todos los ámbitos de la disciplina matemática. En 1894 descubrió el grupo fundamental de un espacio topológico.} de un punto de equilibrio. Dado un sistema \eqref{eq:forma_vec} de segundo orden, sea $\gamma$ una curva cerrada simple que no pasa a traves de ningún punto de equilibrio de \eqref{eq:forma_vec}. Consideremos la orientación de campo vectorial $\mathbf{f}(\mathbf{x})$ en el punto $\mathbf{p} \, \in \, \gamma$. Si el punto $\mathbf{p}$ recorre la curva $\gamma$ en el sentido antihorario, y ha dado una vuelta  completa, entonces debe haber rotado un ángulo $2 \pi k$ para algún entero $k$, donde el ángulo es medido en sentido antihorario. El entero $k$ es llamado el índice de la curva cerrada $\gamma$. Si se dipone a $\gamma$ tal que encierre un punto de equilibrio aislado $\tilde{\mathbf{x}}$, entonces $k$ es llamado el índice de $\tilde{\mathbf{x}}$. 
+Gráficamente:
+
+
+
+% Generated with LaTeXDraw 2.0.8
+% Wed May 25 23:33:09 ART 2011
+% \usepackage[usenames,dvipsnames]{pstricks}
+% \usepackage{epsfig}
+% \usepackage{pst-grad} % For gradients
+% \usepackage{pst-plot} % For axes
+\begin{center}
+
+\scalebox{1} % Change this value to rescale the drawing.
+{
+\begin{pspicture}(0,-3.1789062)(9.17,3.1489062)
+\definecolor{color33277}{rgb}{0.9921568627450981,0.09803921568627451,0.2784313725490196}
+\definecolor{color33318}{rgb}{0.01568627450980392,0.9450980392156862,0.14901960784313725}
+\definecolor{color33358}{rgb}{0.03137254901960784,0.01568627450980392,0.9450980392156862}
+\definecolor{color33430}{rgb}{0.9254901960784314,0.396078431372549,0.8862745098039215}
+\psbezier[linewidth=0.058000002](1.42,2.0789063)(2.3132396,2.5284874)(7.6755395,2.1848056)(8.0,1.2389063)(8.32446,0.29300696)(4.9399137,-2.827963)(3.94,-2.8410938)(2.9400861,-2.8542244)(0.64843565,-0.5500158)(0.5,0.43890625)(0.35156432,1.4278283)(0.5267605,1.629325)(1.42,2.0789063)
+\psdots[dotsize=0.188,linecolor=color33277](3.76,0.11890625)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(5.2,3.1389062)(4.2,1.3389063)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(2.4,3.1389062)(3.4,1.3389063)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.2,2.7389061)(2.2,1.3389063)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.0,0.93890625)(1.2,0.93890625)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(0.2,-0.46109375)(1.4,0.13890626)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.0,-1.2610937)(2.8,-0.46109375)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(1.8,-2.0610938)(2.8,-1.2610937)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(2.6,-2.4610937)(3.2,-1.8610938)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(5.0,-2.6610937)(4.4,-2.2610939)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(5.6,-2.0610938)(5.2,-1.8610938)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(7.2,-1.6610937)(5.4,0.33890626)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(8.8,-0.26109374)(6.4,0.33890626)
+\psline[linewidth=0.02cm,arrowsize=0.05291667cm 2.0,arrowlength=1.4,arrowinset=0.4]{->}(8.2,1.9389062)(7.0,1.1389062)
+\psdots[dotsize=0.128,linecolor=color33318](7.6,1.5389062)
+\psdots[dotsize=0.128,linecolor=color33318](6.6,-1.0610938)
+\psdots[dotsize=0.128,linecolor=color33318](5.4,-2.0610938)
+\psdots[dotsize=0.128,linecolor=color33318](4.76,-2.5010939)
+\psdots[dotsize=0.128,linecolor=color33318](2.76,-2.3410938)
+\psdots[dotsize=0.128,linecolor=color33318](2.12,-1.7810937)
+\psdots[dotsize=0.128,linecolor=color33318](1.4,-1.0610938)
+\psdots[dotsize=0.128,linecolor=color33318](0.76,-0.18109375)
+\psdots[dotsize=0.128,linecolor=color33318](0.44,0.93890625)
+\psdots[dotsize=0.128,linecolor=color33318](1.64,2.1389062)
+\psdots[dotsize=0.128,linecolor=color33318](2.92,2.2189062)
+\psdots[dotsize=0.128,linecolor=color33318](4.68,2.2189062)
+\psdots[dotsize=0.128,linecolor=color33318](7.56,0.05890625)
+\psdots[dotsize=0.128,linecolor=color33318](6.6,1.8989062)
+
+\rput(3.7214062,-3.1){\begin{large}
+$\gamma$
+\end{large}}
+
+\rput(4.0865626,0.08390625){$\tilde{\mathbf{x}}$}
+
+\rput(6.844531,2.2439063){$\mathbf{p}$}
+
+\rput(7.735625,-0.31609374){$\mathbf{f}(\mathbf{p})$}
+\psline[linewidth=0.02cm,linecolor=color33358](7.56,0.05890625)(9.16,0.05890625)
+\psarc[linewidth=0.02,linecolor=color33358,fillstyle=solid](7.68,0.25890625){0.44}{336.80142}{188.1301}
+
+\rput(8.197657,0.80390626){$\theta$}
+\psline[linewidth=0.02cm,linecolor=color33430](5.94,2.0189064)(6.08,1.7389063)
+\psline[linewidth=0.02cm,linecolor=color33430](5.94,2.0189064)(6.08,2.1589062)
+\psline[linewidth=0.02cm,linecolor=color33430](3.28,2.2989063)(3.56,2.0189064)
+\psline[linewidth=0.02cm,linecolor=color33430](3.28,2.2989063)(3.56,2.5789063)
+\psline[linewidth=0.02cm,linecolor=color33430](6.08,-1.4810938)(5.8,-1.4810938)
+\psline[linewidth=0.02cm,linecolor=color33430](6.08,-1.4810938)(6.08,-1.7610937)
+\end{pspicture} 
+}
+
+\end{center}
+
+
+
+
+Teniendo presente esto presentamos los siguientes lemas y corolarios:
+
+\begin{lem}[Indices de Poicaré] (Puntos de equilibrios)\\
+\begin{itemize}
+\item[\bf{a})] El índice de un nodo, foco o centro es $+1$.
+\item[\bf{b})] El índice de un punto silla es $-1$.
+\item[\bf{c})] El índice de una órbita cerrada es $+1$.
+\item[\bf{d})] El índice de una curva cerrada que no encierra ningún punto de equilirbio es $0$.
+\item[\bf{e})] El índice de una curva cerrada es igual a la suma de los índices de los puntos de equilibrio dentro de ella.
+\end{itemize}
+
+\end{lem}
+
+
+\begin{coro}
+Dentro de cualquier órbita periódica $\gamma$, debe haber al menos un punto de equilibrio. Supongamos que los puntos de equilibrio dentro de $\gamma$ son hiperbólicos, entonces si $N$ es el número de nodos y focos y si $S$ es el número de puntos silla, debe ser que $N-S=1$
+\label{poinc}
+\end{coro}
+
+Para nuestro simple caso $N=1$, $S=0$ por ello existe una órbita periódica. Además si graficamos el retrato de fase del sistema 
+podemos observar dicho ciclo límite:
+
+
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.97\textwidth]{phase_portrait.eps}
+   \caption{Retrato de fase del sistema \eqref{eq:problema1}}\label{fig:retrato_de_fase}     
+\end{figure}
+
+%-------------------------------------------------------------------------
+% Problema 2
+%-------------------------------------------------------------------------
+\section{Problema 2}
+Dado el sistema:
+
+\begin{equation}
+     \label{eq:problema2}
+      \left\{
+	       \begin{array}{ll}
+               \dot{x_{1}}=2x_{2}+x_{1}(x_{1}^{2}+2x_{2}^{4})\\[5pt] %truco para agregar espacio
+               \dot{x_{2}}=-2x_{1}+x_{2}(x_{1}^{2}+x_{2}^{4})
+	       \end{array}
+	     \right.
+\end{equation}
+Analizar la estabilidad del punto de equilibrio.
+
+\subsection{Resolución}
+
+Primero la definición de estabilidad de un punto de equilibrio es la siguiente:
+
+
+\begin{defi}[Estabilidad PE] 
+    El punto de equilibrio (PE) $x=0$ es:
+  \begin{itemize}
+    \item \textit{estable}, si para cada $\epsilon > 0$ existe un $\delta = \delta(\epsilon)$ tal que:
+        \begin{equation}
+            \Vert x(0) \Vert < \delta \Longrightarrow \Vert x(t) \Vert < \epsilon \quad  \forall \, t \geq t_0 \label{eq:est_uni}
+        \end{equation}
+
+    \item \textit{inestable} si no es estable 
+     
+    \item \textit{asintóticamente estable}(AE) si es estable y $\delta$ puede elegirse tal que:
+        \begin{equation}
+            \Vert x(0) \Vert < \delta \Longrightarrow \lim \limits_{t \rightarrow \infty}x(t)=0
+        \end{equation}
+    \end{itemize}
+\end{defi}
+
+Además una de las herramientas clásicas en la teoría de estabilidad es el teorema de Lyapunov
+\begin{teo}[Lyapunov]
+    Sea el origen $x=0$ un PE de \eqref{eq:forma_vec} y sea $D \subset \mathbb{R}^{n}$ un dominio
+    que contiene el origen. Sea $V$: $D \rightarrow \mathbb{R}$ una función continuamente diferenciable tal que:
+    \begin{equation}
+        V(0)=0 \quad y \quad V(x) > 0 \quad en \quad D-{0} \label{eq:def_pos}
+    \end{equation}
+    
+    \begin{equation}
+        \dot{V}(x) \leq 0 \quad en \quad D
+    \end{equation}
+    Entonces $x=0$ es estable. Más aún, si 
+    \begin{equation}
+        \dot{V}(x) < 0 \quad en \quad D
+    \end{equation}
+    entonces $x=0$ es Asintóticamente estable(AE)
+\end{teo}
+
+Además con un tratamiento muy parecido para la estabilidad podemos clasificar a un PE como inestable gracias al 
+siguiente resultado:
+
+\begin{teo}[Chetaev]
+    Sea $x=0$ un PE de \eqref{eq:forma_vec}. Sea $V \rightarrow \mathbb{R} $ una función continuamente diferenciable
+    tal que $V(0)=0$ y $V(x_{0})>0$ para algún $x_{0}$ con $\Vert x_{0} \Vert$ arbitrariamente pequeña. Definamos el 
+    Conjunto $U$ como:
+    \begin{equation}
+        U = \left\{x \in B_{r} | V(x) > 0 \right\}
+    \end{equation}
+    \begin{equation}
+        B_{r} = \left\{ x \in \mathbb{R}^{n}|\Vert x \Vert \leq r \right\}
+    \end{equation}
+    y supongamos que $\dot{V} > 0 $ en $U$. Entonces $x=0$ es inestable.
+    \label{Chetaev}
+\end{teo}
+Además otro resultado muy poderoso conocido como \textit{metodo indirecto de Lyapunov}, el cual da condiciones 
+para determinar la estabilidad del origen del sistema no lineal, a traves del estudio de la estabilidad del sistema linealizado.
+
+\begin{teo}[Metodo indirecto de Lyapunov]
+    Sea $x=0$ un PE del sistema no lineal \eqref{eq:forma_vec} donde $f:D \rightarrow \mathbb{R}^{n}$ es una función continuamente
+    diferenciable y $D \subset \mathbb{R}^{n}$ es un entorno del origen. Sea:
+     \begin{equation}
+        A=\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}\bigg\vert_{\mathbf{x}=\mathbf{0}}=
+        \begin{bmatrix}
+            \dfrac{\partial f_1}{\partial x_1}& \dfrac{\partial f_1}{\partial x_2} \\ 
+            \dfrac{\partial f_2}{\partial x_1}& \dfrac{\partial f_2}{\partial x_2}
+        \end{bmatrix} 
+        \bigg\vert_{\mathbf{x}=\mathbf{0}}
+    \label{eq:jaco2}
+    \end{equation}
+    Entonces:
+    \begin{itemize}
+            \item El origen es asintoticamente estable(AE) si todos los autovalores de $A$ tienen parte real negativa
+            \item El origen es inestable si uno o más autovalores de $A$ tienen parte real positiva.
+    \end{itemize}
+\label{lyapunov_indirecto}
+\end{teo}
+
+Primero comenzamos calculando los puntos de equilibrio del sistema \eqref{eq:problema2}
+
+Obtenemos nuevamente que el único punto de equilibrio del sistema es: $\mathbf{x}^{*} = (0,0)$
+
+Primero investiguemos si podemos inferir el comportamiento cualitativo del PE a traves de su linealización. Para ello calculamos 
+la matriz Jacobiana del  sistema:
+
+
+
+
+\begin{equation}
+\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}=
+\begin{bmatrix}
+ \dfrac{\partial f_1}{\partial x_1}& \dfrac{\partial f_1}{\partial x_2} \\ 
+\dfrac{\partial f_2}{\partial x_1}& \dfrac{\partial f_2}{\partial x_2}
+\end{bmatrix} 
+=
+\begin{bmatrix}
+  3 x_{1}^{2} + 2 x_{2}^{4} & 8 x_{1} x_{2}^{3} + 2\\
+ 2 x_{1} x_{2} - 2 & x_{1}^{2} + 5 x_{2}^{4}
+\end{bmatrix}
+\label{eq:jaco_sis2}
+\end{equation}
+
+
+
+Luego al evaluar la matriz Jacobiana en el PE obtenemos:
+\begin{equation}
+A_2=\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}\bigg\vert_{\mathbf{x}=\mathbf{x}_1}=
+\begin{bmatrix}
+0 & 2 \\
+-2& 0
+\end{bmatrix}
+\label{eq:jaco_sis_2}
+\end{equation}
+
+
+Cuyos autovalores son:
+
+\begin{equation}
+    \lambda_{1}^{A_{2}}=-2j    \label{eq:raiz_1_2}
+\end{equation}
+
+
+\begin{equation}
+    \lambda_{2}^{A_{2}}=2j \label{eq:raiz_2_2}
+\end{equation}
+
+Ya que los puntos no son hiperbólicos(son imaginarios puros) no podemos inferir el comportamiento ni la estabilidad del PE 
+directamente. Por ello Sea la función $V(\mathbf{x}) = x_{1}^{2} + x_{2}^{2}$ una función definida positiva $\forall$ $\mathbf{x}$ $\in$ $\mathbb{R}^{2}$. Luego Sea:
+\begin{equation}
+    \dot{V}(\mathbf{x}) = \frac{\partial V}{\partial \mathbf{x}}\dot{\mathbf{x}}=\frac{\partial V}{\partial \mathbf{x}}\mathbf{f}
+\end{equation}
+
+\begin{equation}
+    \dot{V}(\mathbf{x})=2x_{1}f_{1} + 2x_{2}f_{2}
+\end{equation}
+Lo que nos da:
+
+\begin{equation}
+     \dot{V}(\mathbf{x})=2 x_{1}^{4} + 4 x_{1}^{2} x_{2}^{4} + 2 x_{1}^{2} x_{2}^{2} + 2 x_{2}^{6}
+\end{equation}
+
+Como vemos $\dot{V}(\mathbf{x})> 0$  $\forall$ $\mathbf{x} \in \mathbb{R}^{2}$ Aplicando el teorema de Chetaev \ref{Chetaev} concluimos que el PE es \textit{inestable}.
+
+
+
+%-------------------------------------------------------------------------
+% Problema 3
+%-------------------------------------------------------------------------
+
+\section{Problema 3}
+
+Dado el sistema:
+
+
+\begin{equation}
+     \label{eq:problema3}
+      \left\{
+	       \begin{array}{ll}
+               \dot{x_{1}}=-x_{1}^{3}+u\\[5pt] %truco para agregar espacio
+               \dot{x_{2}}=x_{1}
+	       \end{array}
+	     \right.
+\end{equation}
+Analizar la estabilidad del punto de equilibrio para $u=0$ y $u=-x_{2}$
+
+
+Primero para el caso $u=0$ el sistema que nos queda es:
+
+\begin{equation}
+     \label{eq:problema3_2}
+      \left\{
+	       \begin{array}{ll}
+               \dot{x_{1}}=-x_{1}^{3}\\[5pt] %truco para agregar espacio
+               \dot{x_{2}}=x_{1}
+	       \end{array}
+	     \right.
+\end{equation}
+
+En este caso tenemos un conjunto de puntos de equilibrio que es toda la recta $x_{1}=0$. Por ello 
+la linealización no nos va a ayudar a estudiar el comportamiento del sistema. Lo comprobamos con los
+siguientes calculos:
+
+\begin{equation}
+\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}=
+\begin{bmatrix}
+ \dfrac{\partial f_1}{\partial x_1}& \dfrac{\partial f_1}{\partial x_2} \\ 
+\dfrac{\partial f_2}{\partial x_1}& \dfrac{\partial f_2}{\partial x_2}
+\end{bmatrix} 
+=
+\begin{bmatrix}
+    -3x_{1}^{2} & 0\\
+1 & 0 
+\end{bmatrix}
+\label{eq:jaco_sis3}
+\end{equation}
+
+Como esperabamos la linealización nos da cero como autovalor doble del sistema linealizado. 
+Una herramienta de la que podemos hacer uso en este caso es el siguiente teorema:
+
+\begin{teo}[LaSalle]
+    Sea $\Omega \subset D$  un conjunto compacto que es invariante positivo com respecto a \eqref{eq:forma_vec}. Sea 
+    $V:\, D \rightarrow \mathbb{R} $ una función continuamente diferenciable tal que $V(\mathbf{x}) \leq 0$ en $\Omega$. Sea 
+    $E$ el conjunto de todos los puntos de $\Omega$ donde $V(\mathbf{x})=0$. Sea $M$ el mayor conjunto invariante en $E$. Entonces 
+    toda solución que comienza en $\Omega$ tiende a $M$ cuando $t \rightarrow \infty$
+\end{teo}
+
+Sea $V(\mathbf{x})=x_{1}^{2}$(Notemos que el teorema no pide que $V(\mathbf{x})$ sea definida positiva), 
+\begin{equation}
+    \Omega_{c} = \left\{\mathbf{x} \in \mathbb{R}^{2}| V(\mathbf{x}) \leq c \quad x_{2} \in [b,d]\right\} 
+\end{equation}
+
+Calculamos sobre las trayectorias: 
+
+\begin{equation}
+    \dot{V}(\mathbf{x})=-6 x_{1}^{2}
+\end{equation}
+
+y sea 
+
+\begin{equation}
+    E = \left\{ x \in \Omega_{c}|x_{1}=0 \right\}
+\end{equation}
+
+El conjunto invariante que en este caso $E=M$, como se cumples las hipótesis del teorema y además como podemos elegir las constantes
+$a,b,c$ para cualquier valor real, el sistema es \textit{globalmente asintoticamente estable}.
+
+
+Luego para el caso en el que $u=-x_{2}$ el sistema que nos queda es:
+
+\begin{equation}
+     \label{eq:problema3_2_1}
+      \left\{
+	       \begin{array}{ll}
+               \dot{x_{1}}=-x_{1}^{3}-x_{2}\\[5pt] %truco para agregar espacio
+               \dot{x_{2}}=x_{1}
+	       \end{array}
+	     \right.
+\end{equation}
+
+en este caso para para el PE $\mathbf{x} = (0,0)$ 
+
+
+
+\begin{equation}
+\dfrac{\partial \mathbf{f}}{\partial \mathbf{x}}=
+\begin{bmatrix}
+ \dfrac{\partial f_1}{\partial x_1}& \dfrac{\partial f_1}{\partial x_2} \\ 
+\dfrac{\partial f_2}{\partial x_1}& \dfrac{\partial f_2}{\partial x_2}
+\end{bmatrix} 
+=
+\begin{bmatrix}
+    -3x_{1}^{2} & -1\\
+1 & 0 
+\end{bmatrix}
+\label{eq:jaco_sis3}
+\end{equation}
+
+cuyos autovalores son:$\lambda_{1}=i$ y $\lambda_{2}=-i$. Como no son hiperbólicos 
+no podemos inferir el comportamiento del sistema linealizado. 
+Sea $V(\mathbf{x})=x_{1}^{2}+x_{2}^{2}$ entonces sobre las trayectorias:
+
+\begin{equation}
+    \dot{V}(\mathbf{x}) = -2x_{1}^{4}
+\end{equation}
+
+Vemos que $\dot{V}(\mathbf{x})$ es semidefinida negativa para todo $\mathbf{x}$, entonces si $x_{1} \sim 0$ $\dot{x}_{2} \sim 0$
+y entonces $x_{2} \sim 0$ y por ello $x_{1}^{3}(t) \sim 0$ entonces por el principio de invariancia el origen es globalmente asintoticamente estable.
 
 \newpage
 
