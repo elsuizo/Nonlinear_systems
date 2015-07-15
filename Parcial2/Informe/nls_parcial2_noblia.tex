@@ -298,5 +298,76 @@ u
 y = x_{4}
 \end{equation}
 
+\subsection{Resolución}
+
+Como primera observación, el sistema posee la forma afin al control, osea esta 
+enmarcado en la siguiente estructura:
+
+\begin{align}
+\begin{array}{rcl}
+    \dot{\mathbf{x}}& = &\mathbf{f}(\mathbf{x}) + \mathbf{g}(\mathbf{x}) u \\
+    y & = & h(\mathbf{x})\end{array}
+\label{ec:afin_al_control}
+\end{align}
+
+Donde:
+\begin{equation}
+    \mathbf{f(\mathbf{x})}=
+\begin{bmatrix}
+ x_{1}x_{2} - x_{1}^{3}\\
+ x_{1} \\
+ -x_{3} \\
+ x_{1}^{2} + x_{2}
+\end{bmatrix}
+\label{ec:f}
+\end{equation}
+
+\begin{equation}
+    \mathbf{g(\mathbf{x})}=
+\begin{bmatrix}
+ 0\\
+ 2+ 2x_{3} \\
+ 1\\
+ 0
+\end{bmatrix}
+\label{ec:g}
+\end{equation}
+
+\begin{equation}
+    h(\mathbf{x}) = x_{4}
+\end{equation}
+
+Una de las definiciones más importantes de la teoría de linealización exacta por
+realimentación es la de grado relativo de un sistema no-lineal, la misma nos dice
+cuales son los alcances de nuestra linealización y si se puede realizar.
+
+\begin{defi}[Grado Relativo]
+    El sistema \eqref{ec:afin_al_control} Donde: $\mathbf{f}$, $\mathbf{g}$, $h$, definidas
+    en un dominio $D\in \mathbb{R}^{n}$, son suficientemente suaves, tienen grado relativo $r$
+    con $1\leq r \leq n$ en una región $D_{0}\in D$ si
+
+\begin{equation}
+    \frac{\partial \psi_{i}}{\partial \mathbf{x}}\mathbf{g}(\matbf{x}) = 0 \hspace{5em} i=1,2,\dots , r-1
+\end{equation}
+
+\begin{equation}
+    \frac{\partial \psi_{r}}{\partial \mathbf{x}} \mathbf{g}(\matbf{x}) \neq 0  
+\end{equation}
+       Donde:
+
+\begin{equation}
+    \psi_{1}(\mathbf{x}) = h(\mathbf{x}) 
+\end{equation}
+y
+\begin{equation}
+     \psi_{i+1}(\mathbf{x}) = \frac{\partial \psi_{i}}{\partial \mathbf{x}}\mathbf{f}(\matbf{x}) 
+\end{equation}
+
+\end{defi}   
+
+
+Si el sistema tiene grado relativo ($GR$) $r$, entonces es linealizable entrada-salida. Si
+tiene $GR=n$ entonces es linealizable tanto estrada-salida como entrada-estado.
+
 
 \end{document}
