@@ -41,7 +41,7 @@
 \usepackage{xcolor}
 \usepackage{wallpaper}
 \usepackage{textcomp}
-
+\usepackage{circuitikz}
 \oddsidemargin -0.2in \textwidth 7.0in \topmargin -0.9in \textheight
 9.0in
 \parindent 3em
@@ -58,8 +58,8 @@ cons-tan-tes o-pe-ra-cion i-lu-mi-na-cion}
 
 \rhead{\includegraphics[width=.075\textwidth]{logo_iaci2.eps}}
 \chead{}
-\lhead{Sistemas nolineales}
-\rfoot{1º cuatrimestre 2013  }
+\lhead{Sistemas No-Lineales}
+\rfoot{1º cuatrimestre 2015  }
 \cfoot{\thepage}
 \lfoot{\bf{Universidad Nacional de Quilmes}}
 %-------------------------------------------------------------------------
@@ -357,10 +357,12 @@ cuales son los alcances de nuestra linealización y si se puede realizar.
 
 \begin{equation}
     \psi_{1}(\mathbf{x}) = h(\mathbf{x}) 
+     \label{ec:restriccion_phi_1}
 \end{equation}
 y
 \begin{equation}
      \psi_{i+1}(\mathbf{x}) = \frac{\partial \psi_{i}}{\partial \mathbf{x}}\mathbf{f}(\matbf{x}) 
+     \label{ec:restriccion_phi_2}
 \end{equation}
 
 \end{defi}   
@@ -369,5 +371,278 @@ y
 Si el sistema tiene grado relativo ($GR$) $r$, entonces es linealizable entrada-salida. Si
 tiene $GR=n$ entonces es linealizable tanto estrada-salida como entrada-estado.
 
+La manera practica de verificar el $GR$ es calcular las derivadas sucesivas de la salida, hasta
+que aparezca explicitamente la entrada $u$, en nuetro caso:
 
+\begin{align}
+\begin{array}{rcl}
+    \dot{y}&=&\dot{x_{4}}= x_{1}^{2} + x_{2} \\
+    \ddot{y} &=& 2x_{1}\dot{x_{1}} + \dot{x_{2}} \\
+    &= & 2x_{1} (x_{1}x_{2}-x_{1}^3) + x_{1} + (2 + 2x_{3})u
+\end{array}
+\end{align}
+
+Ya que la entrada $u$ apareció en la segunda derivada de la salida, decimos que el $GR$ del sistema \eqref{ec:afin_al_control} es $2$.
+Ello significa que solo es linealizable entrada-salida, y que solo dos estados de los cuatro seran \textit{vistos} por la ley de control.
+El grado relativo esta definido en
+\begin{equation}
+    D_{0} = \left\{\matbf{x} \in \mathbb{R}^{4} | x_{3} \neq -1 \right\}
+\end{equation}
+
+Para lograr dicha linealización es necesario primero realizar un cambio de variables,
+%
+\begin{align}
+    \mathbf{z} = T(\mathbf{x}) = \begin{bmatrix} \phi(\mathbf{x}) \\ \psi(\mathbf{x}) \end{bmatrix} \triangleq \begin{bmatrix} \eta \\ \xi \end{bmatrix}
+\label{ec:difeo}
+\end{align}
+%
+para que las variables de estado pasen a ser $\eta$, que es inobservable desde $y$ y se elige de modo que no aparezca la entrada $u$ en su ecuación y $\xi$, que representa la transferencia entrada-salida de un integrador. Representado de esta manera, se dice que el sistema se encuentra en su forma normal
+%
+\begin{align}
+\begin{array}{rcl}
+\dot{\eta} & = & f_0(\eta,\xi) \\
+\dot{\xi} & = & A_c \xi + B_c \beta(\mathbf{x})^{-1}[u-\alpha(\mathbf{x})] \\
+y & = & C_c \xi
+\end{array}
+\label{ec:sistnor}
+\end{align}
+%
+donde $\xi$ y $\eta$ $\in \R$, ($A_c$, $B_c$, $C_c$) es la forma canónica de dos integradores, es decir 
+
+
+\begin{equation}
+A_{c}=
+\begin{bmatrix}
+  0 & 1\\
+  0 & 0
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+B_{c}=
+\begin{bmatrix}
+  0\\ 
+  1 
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+C_{c}=
+\begin{bmatrix}
+  0 \, 1 
+\end{bmatrix}
+\end{equation}
+
+Donde:
+
+%
+\begin{align}
+    f_{0}(\eta,\xi) = \dfrac{\partial \phi}{\partial \mathbf{x}}f(\mathbf{x})\vert_{\mathbf{x}=T^{-1}(\mathbf{z})}
+\label{ec:fsubcero}
+\end{align}
+%
+%
+\begin{align}
+\begin{array}{rcl}
+    \beta(\mathbf{x}) = \dfrac{1}{(\partial \psi_{2} / \partial \mathbf{x} ) g(\mathbf{x}) } & \textnormal{y} & \alpha(\mathbf{x}) = - \dfrac{(\partial \psi_{2} / \partial \mathbf{x}) f(\mathbf{x})}{(\partial \psi_{2} / \partial \mathbf{x}) g(\mathbf{x})}
+\end{array}
+\label{alfaybeta}
+\end{align}
+
+En nuestro caso el esquema que tenemos es el siguiente:
+\begin{align}
+    \mathbf{z} = T(\mathbf{x}) = \begin{bmatrix} \phi_{1}(\mathbf{x}) \\ \phi_{2}(\mathbf{x}) \\ \psi_{1}(\mathbf{x})  \\ \psi_{2}(\mathbf{x})\end{bmatrix} \triangleq \begin{bmatrix}\mathbf{\phi} \\ \mathbf{\psi} \end{bmatrix} \triangleq \begin{bmatrix} \eta \\ \xi \end{bmatrix}
+\label{ec:difeo_aumentado}
+\end{align}
+%
+Procedemos tomando como $\psi_{1}(\mathbf{x})=h(\mathbf{x})=x_{4}$, luego utilizando \eqref{ec:restriccion_phi_2} calculamos $\psi_{2}(\mathbf{x})=x_{1}^{2}+x_{2}$. Prosegimos calculando las funciones $\alpha(\mathbf{x})$ y $\beta(\mathbf{x})$, lo que resulta en:
+
+\begin{equation}
+    \beta(\mathbf{x})=\frac{1}{2+2x_{3}}
+\end{equation}
+
+\begin{equation}
+    \alpha(\mathbf{x}) = -\frac{2x_{1}^{2}x_{2}-2x_{1}^{4}+x_{1}}{2+2x_{3}}
+\end{equation}
+
+Antes de continuar con el calculo del difeomorfismo, es conveniente asegurar que el sistema es de minima fase
+ya que si posee esa propiedad se puede asegurar que puede ser estabilizado al punto de equilibrio($\mathbf{x}=\mathbf{0}$). 
+Ya que la forma normal \eqref{ec:sistnor} tiene una parte \textit{externa} representada por las variables $\xi$, y una parte \textit{interna}
+representada por las variables $\eta$. El control $u=\alpha(\mathbf{x})+\beta(\mathbf{x})v$ linealiza la parte \textit{externa} y hace inobservable la parte \textit{interna}. Haciendo $\xi=0$ en la primera ecuación \eqref{ec:sistnor} tenemos la contraparte nolineal de lo que se conoce en el contexto de Control lineal clásico como dinámica de los ceros.
+
+\begin{equation}
+    \dot{\eta} = \mathbf{f}_{0}(\eta, 0)
+    \label{ec:f_0}
+\end{equation}
+que es la contraparte nolineal de $\dot{\eta}=A_{c}\eta$. El sistema nolineal se dice de mínima fase si la dinámica de los ceros tiene un PEAE
+en el dominio de interes. La ecuación \eqref{ec:f_0}  representa la dinámica de los ceros en las nuevas variables, podemos sin embargo caracterizarla en las variables originales, notando que:
+
+%
+\begin{align}
+\begin{array}{c}
+y(t) \equiv 0 \Rightarrow \xi(t) \equiv 0 \Rightarrow u(t) \equiv \alpha(x(t))
+\end{array}
+\end{align}
+Entonces mantener la salida identicamente cero implica que la solución de la ecuación de estados debe quedar confinada al conjunto:
+
+\begin{align}
+\begin{array}{c}
+    Z^{*} = \lbrace x \in D_0 \hspace{0.1cm} \vert \hspace{0.1cm} \psi_{1}(\mathbf{x}) = \psi_{2}(\mathbf{x}) = \cdots = 0 \rbrace
+\end{array}
+\end{align}
+%
+y la entrada debe ser: $u=u^{*}(\mathbf{x}):= \alpha(\mathbf{x})|_{\mathbf{x}\in Z^{*}}$, con ello la dinámica de los ceros es la dinámica restringida:
+
+\begin{equation}
+    \dot{\mathbf{x}} = \mathbf{f}^{*}(\mathbf{x}) = [\mathbf{f}(\mathbf{x})+ \mathbf{g}(\mathbf{x})\alpha(\mathbf{x})]|_{\mathbf{x}\in Z^{*}}
+\end{equation}
+
+Entonces en nuestro caso: $\psi_{1}(\mathbf{x})=0$ $\rightarrowtail$ $x_{4}=0$ y $\psi_{2}(\mathbf{x})=0$ $\rightarrowtail$ $x_{2} = -x_{1}^{2}$
+Y la dinámica restringida en $Z^{*}$ queda:
+
+
+\begin{align}
+    \mathbf{f}^{*} = \begin{bmatrix} -2x_{1}^{3} \\ 4x_{1}^{4} \\ -x_{3}-\frac{-4x_{1}^{4}+x_{1}}{2+2x_{3}} \\ 0\end{bmatrix}
+    \label{ec:dinamica_ceros}
+\end{align}
+%-------------------------------------------------------------------------
+% falta ver si esta bien esto o hay que hacerlo de nuevo
+%-------------------------------------------------------------------------
+
+
+\section{Problema 2}
+En la figura, se muestra la configuración \textit{Boost}(elevador) de un comvertidor electrónico dc-dc
+
+\begin{itemize}
+        \item Obtenga el modelo en espacio de estados considerando como $u$ a la posición de la llave. Note que cuando la llave esta en la posición $1$ hay dos circuitos en funcionamiento de forma independiente.
+        \item Considerando la superficie $S_{v}=v-V=0$, estabilice utilizando regimen deslizante.
+        \item Idem al anterior pero considerando la superficie $S_{I}=i-I=0$. Asignando a las constantes el siguiente valor numerico:
+            	\begin{center}
+	                R=1 \hspace{1cm} L=1 \hspace{1cm} C=1 \hspace{1cm} E=1 \hspace{1cm} V=1
+	            \end{center}
+                Simule el lazo de control. Obtenga el retrato de fase donde pueda verse el regime deslizante. Analice si se verifica el objetivo de contol 
+        \item Utilizando la salida $y=v\frac{1}{2}Cv^{2}+\frac{1}{2}Li^{2}$(energía almacenada), linealice el sistema utilizando modo deslizantes. Simule utilizando los mismos parametros que en el item anterior.
+        \end{itemize}
+
+
+
+
+
+\begin{figure}[H]
+\centering    
+\begin{circuitikz}[american voltages]
+\draw
+  (0,0) to [short, *-] (10,0)
+  to [R, l_=$R$] (10,4) 
+  (0,0) to [battery, l=$E$] (0,4) 
+  to [L, l=$L$] (2,4)
+  to [cspst, l=s] (3,4) 
+  (4,0) to [short,*-o] (4,3)
+  (10,4) to [short,*-] (7,4)
+  (7,4) to [short,*-o] (5,4)
+  (7,4) to [C, l_=$C$] (7,0) 
+  (5,4) node[below] {$u=0$}
+  (4,3) node[right] {$u=1$};
+  \end{circuitikz}
+  \caption{Convertidor Boost}
+  \end{figure}
+
+\subsection{Resolución}
+Comenzamos planteando las ecuaciones del sistema para ambas posiciones de la llave\\
+\textbf{Posición de u: $u=1$:}\\
+
+\[
+-E+v_{L}=0 \Rightarrow E=v_{L}=L\dfrac{di_{L}}{dt}
+\]
+
+\[
+v_{R}+v_{c}=i_{c} R + v_{c} = 0 \Rightarrow v_{c} = - i R  = - \dfrac{dv_{c}}{dt} CR
+\]  
+
+\begin{equation}
+\left\lbrace  \begin{array}{rcl} \label{Boost_u=1}
+		\dfrac{di}{dt}	&=	&\dfrac{E}{L}\\
+						&	&\\
+		\dfrac{dv_{c}}{dt} &=	&-\dfrac{1}{cR} v_{c}
+\end{array}
+\right. 
+\end{equation}
+
+\textbf{Posición de u: $u=0$:}\\
+
+\[
+E=v_{L}+v_{c}=L\dfrac{di}{dt} + v_{c} \Rightarrow \dfrac{di}{dt}=\dfrac{E}{L}-\dfrac{1}{L} v_{c}
+\]
+
+\[
+i_{L}=i_{c}+i_{R} \Rightarrow i_{R}=i_{L}-i_{c} = i_{L}- \dfrac{dv_{c}}{dt}c
+\]
+
+\[
+-v_{c}+v_{R}=0 \Rightarrow v_{c}=v_{R}=i_{R} R= i_{L} R - cR \dfrac{dv_{c}}{dt} \Rightarrow \dfrac{dv_{c}}{dt} = \dfrac{1}{C}i - \dfrac{1}{CR}v_{c}
+\]  
+
+\begin{equation}	\label{boost_u=0}
+\left\lbrace  \begin{array}{rcl}
+		\dfrac{di}{dt}	&=	&\dfrac{E}{L}-\dfrac{1}{L}v_{c}\\
+						&	&\\
+		\dfrac{dv_{c}}{dt} &=	&\dfrac{1}{c}i-\dfrac{1}{cR}v_{c}\\
+\end{array}
+\right. 
+\end{equation}
+
+Utilizando los sistemas \eqref{Boost_u=1} y \eqref{boost_u=0} y la acción de $u$, ampliamos el sistema para escribirlo en una forma mas compacta
+
+ \begin{equation}  \label{Sistema_boost}
+\left\lbrace  \begin{array}{rcl}
+		\dfrac{di}{dt}	&=	&\dfrac{E}{L}+\dfrac{1}{L}v_{c} (u-1)\\
+						&	&\\
+		\dfrac{dv_{c}}{dt} &=	&-\dfrac{1}{c} i\; u + \left( -\dfrac{1}{c}i + \dfrac{1}{cR}v_{c} \right) \left(u-1\right) \\
+\end{array}
+\right. 
+\end{equation}
+Reescribiendo \eqref{Sistema_boost} y usando $i_{L}=x_{1}$, $v_{c}=x_{2}$ obtenemos
+
+\begin{equation}
+\left\lbrace \begin{array}{lcl} \label{sistema 1}
+			 \dot{x_{1}}	&=	&\dfrac{E}{L}-\dfrac{1}{L}x_{2} + \dfrac{1}{L}x_{2}\,u\\
+			 				&	&\\
+			 \dot{x_{2}}	&=	&\dfrac{1}{c}x_{1}-\dfrac{1}{cR}x_{2}-\dfrac{1}{c}x_{1}\,u
+\end{array}
+\right. 
+\end{equation}
+
+Finalmente, es importante remarcar que el sistema \eqref{sistema 1}, muestra en su estructura básica, un esquema a fin al control. Es esto ultimo, una de las condiciones esenciales en el planteo de las estrategias de control a desarrollar, es decir, es condición necesaria para que estos planteos puedan ser formulados. En este sentido, vemos en la ecuación \eqref{afin al control} el esquema general de un sistema en su forma afin:
+
+\begin{equation} \label{afin al control}
+\dot{x}=f(x)+g(x)u
+\end{equation}
+
+En donde $u$ representa la señal de entrada al sistema. Analizando ahora el sistema de estudio propuesto, las funciones vectoriales $f(x)$ y $g(x)$ vienen dadas por:\\
+
+\begin{multicols}{2}
+\[
+f(x)=\left[ \begin{array}{c}
+			-\dfrac{1}{L}x_{2}\\
+			\\
+			\dfrac{1}{c}x_{1}-\dfrac{1}{cR}x_{2}
+\end{array}
+\right]
+\]
+
+\[
+g(x)=\left[ \begin{array}{c}
+			\dfrac{1}{L}x_{2}\\
+			\\
+			-\dfrac{1}{c}x_{1}\\
+\end{array}
+\right]
+\]
+\end{multicols}
+
+
+
+
+
+%
 \end{document}

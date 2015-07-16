@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2015.5.2)  15 JUL 2015 16:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=latex 2015.7.8)  16 JUL 2015 14:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1491,13 +1491,61 @@ Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/circuitikz.sty
+Package: circuitikz 2012/12/29 The CircuiTikz circuit drawing package version 0
+.3.0
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.0 (rcs-revision 1.9)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
+decorations.pathmorphing.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.cod
+e.tex
+\pgfdecoratedcompleteddistance=\dimen303
+\pgfdecoratedremainingdistance=\dimen304
+\pgfdecoratedinputsegmentcompleteddistance=\dimen305
+\pgfdecoratedinputsegmentremainingdistance=\dimen306
+\pgf@decorate@distancetomove=\dimen307
+\pgf@decorate@repeatstate=\count289
+\pgfdecorationsegmentamplitude=\dimen308
+\pgfdecorationsegmentlength=\dimen309
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex
+File: pgflibraryarrows.code.tex 2013/09/23 v3.0.0 (rcs-revision 1.16)
+\arrowsize=\dimen310
+) (/usr/share/texlive/texmf-dist/tex/latex/circuitikz/circuitikz.code.tex
+\pgf@circ@Rlen=\dimen311
+
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircutils.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircmath.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircshapes.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircmonopoles.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircbipoles.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcirctripoles.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircquadpoles.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcirclabel.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcircvoltage.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/pgfcirccurrent.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/circuitikz/circuitikz1.code.tex
+\pgf@circ@res@up=\dimen312
+\pgf@circ@res@down=\dimen313
+\pgf@circ@res@zero=\dimen314
+\pgf@circ@res@left=\dimen315
+\pgf@circ@res@right=\dimen316
+\pgf@circ@res@other=\dimen317
+\pgf@circ@res@step=\dimen318
+\pgfstartlinewidth=\dimen319
+))
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/helvet.sty
 Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
 )
-\c@lem=\count289
-\c@coro=\count290
-\c@teo=\count291
-\c@defi=\count292
+\c@lem=\count290
+\c@coro=\count291
+\c@teo=\count292
+\c@defi=\count293
 
 (./nls_parcial2_noblia.aux
 LaTeX Info: Redefining \. on input line 24.
@@ -1538,7 +1586,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count293
+\c@section@level=\count294
 )
 LaTeX Info: Redefining \ref on input line 263.
 LaTeX Info: Redefining \pageref on input line 263.
@@ -1581,35 +1629,97 @@ Package mdframed Info: mdframed detected package amsthm
 l.350 ...i}}{\partial \mathbf{x}}\mathbf{g}(\matbf
                                                   {x}) = 0 \hspace{5em} i=1,...
 
+? ^^[[A^^[[A^^[[A
+Type <return> to proceed, S to scroll future error messages,
+R to run without stopping, Q to run quietly,
+I to insert something, E to edit your file,
+1 or ... or 9 to ignore the next 1 to 9 tokens of input,
+H for help, X to quit.
 ? 
 ! Undefined control sequence.
 l.354 ...}}{\partial \mathbf{x}} \mathbf{g}(\matbf
                                                   {x}) \neq 0
 ? 
 ! Undefined control sequence.
-l.363 ...i}}{\partial \mathbf{x}}\mathbf{f}(\matbf
+l.364 ...i}}{\partial \mathbf{x}}\mathbf{f}(\matbf
                                                   {x})
 ? 
 File: logo_iaci2.eps Graphic file (type eps)
 <logo_iaci2.eps> [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 373.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 373.
+! Undefined control sequence.
+l.389     D_{0} = \left\{\matbf
+                               {x} \in \mathbb{R}^{4} | x_{3} \neq -1 \right\}
+? 
+! Undefined control sequence.
+l.410 donde $\xi$ y $\eta$ $\in \R
+                                  $, ($A_c$, $B_c$, $C_c$) es la forma canó...
+
+? 
+File: logo_iaci2.eps Graphic file (type eps)
+<logo_iaci2.eps> [3]
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no 6 in font nullfont!
+File: logo_iaci2.eps Graphic file (type eps)
+ <logo_iaci2.eps> [4]
+Underfull \hbox (badness 10000) in paragraph at lines 551--553
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 571--572
+
+ []
+
+File: logo_iaci2.eps Graphic file (type eps)
+<logo_iaci2.eps> [5]
+Underfull \hbox (badness 10000) in paragraph at lines 621--622
+
+ []
+
+
+! LaTeX Error: Environment multicols undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.623 \begin{multicols}
+                       {2}
+? 
+
+! LaTeX Error: \begin{document} ended by \end{multicols}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.641 \end{multicols}
+                     
+? 
+File: logo_iaci2.eps Graphic file (type eps)
+<logo_iaci2.eps> [6]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 648.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 648.
  (./nls_parcial2_noblia.aux
 LaTeX Info: Redefining \. on input line 24.
 LaTeX Info: Redefining \% on input line 24.
 )
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 373.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 373.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 648.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 648.
 Package rerunfilecheck Info: File `nls_parcial2_noblia.out' has not changed.
-(rerunfilecheck)             Checksum: 27698DA64431AA5F82EC218630D1F5C2;107.
+(rerunfilecheck)             Checksum: AFFAB9F33290C6F6427E25CF2CD589D6;214.
  ) 
 Here is how much of TeX's memory you used:
- 28216 strings out of 493106
- 518990 string characters out of 6137099
- 728296 words of memory out of 5000000
- 31187 multiletter control sequences out of 15000+600000
+ 33651 strings out of 493106
+ 682920 string characters out of 6137099
+ 943890 words of memory out of 5000000
+ 36569 multiletter control sequences out of 15000+600000
  9078 words of font info for 36 fonts, out of 8000000 for 9000
  1150 hyphenation exceptions out of 8191
- 61i,15n,96p,10429b,629s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,15n,96p,10429b,956s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on nls_parcial2_noblia.dvi (2 pages, 17120 bytes).
+Output written on nls_parcial2_noblia.dvi (6 pages, 53680 bytes).
